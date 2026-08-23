@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+:root {
+  --background: #F8F9FA;
+  --foreground: #202124;
+  --dot-color: rgba(66, 133, 244, 0.05);
+  --card-bg: #ffffff;
+  --card-border: #000000;
+  --card-border-width: 2px;
+  --card-shadow: 6px 6px 0px #000000;
+  --card-shadow-hover: 4px 4px 0px #000000;
+  --text-primary: #202124;
+  --text-secondary: #000000;
+  --text-muted: #3c4043;
+  --badge-bg: #000000;
+  --badge-text: #ffffff;
+  --badge-border: #000000;
+  --accent-box-bg: #FBBC05;
+}
+
+/* Konsep: Variable CSS Desain System Neo-Brutalisme (Mode Gelap / Dark Mode) */
+.dark {
+  --background: #0f1013;
+  --foreground: #e8eaed;
+  --dot-color: rgba(255, 255, 255, 0.03);
+  --card-bg: #191b21;
+  --card-border: #3f3f46;
+  --card-border-width: 2px;
+  --card-shadow: 6px 6px 0px #000000;
+  --card-shadow-hover: 4px 4px 0px #000000;
+  --text-primary: #e8eaed;
+  --text-secondary: #ffffff;
+  --text-muted: #bdc1c6;
+  --badge-bg: #e8eaed;
+  --badge-text: #0f1013;
+  --badge-border: #3f3f46;
+  --accent-box-bg: #1c1f26;
+}
+
+/* Konsep: Pendaftaran Tema Warna Google Brand & Tipografi pada Tailwind v4 */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-badge-bg: var(--badge-bg);
+  --color-badge-text: var(--badge-text);
+  --color-badge-border: var(--badge-border);
+  --color-accent-box-bg: var(--accent-box-bg);
+
+  --color-google-blue: #4285F4;
+  --color-google-red: #EA4335;
+  --color-google-yellow: #FBBC05;
+  --color-google-green: #34A853;
+  --font-sans: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-space-grotesk), var(--font-plus-jakarta), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-poppins: var(--font-poppins), sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Konsep: Scrollbar Kustom Bergaya Minimalis */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}
+
+/* Konsep: Pengaturan Scroll Native & Anti-Aliasing Teks */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Konsep: Akselerasi GPU Hardware untuk Rendering Animasi Smooth 60FPS di HP */
+.gdg-card, nav, section, [data-framer-name] {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Force Font Heading (Space Grotesk) pada semua Judul */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-space-grotesk), var(--font-plus-jakarta), sans-serif !important;
+}
+
+/* Force Font Code (JetBrains Mono) pada Blok Kode */
+code, kbd, samp, pre, .font-mono {
+  font-family: var(--font-jetbrains-mono), monospace !important;
+}
+
+/* Konsep: Animasi Lambaian Tangan (Wave Emoji) */
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-wave {
+  display: inline-block;
+  animation: wave 2.5s infinite;
+  transform-origin: 70% 70%;
+}
+
+/* Konsep: Animasi Berjalan Bolak-Balik (Running Character) */
+@keyframes move {
+  0% { transform: translateX(0) scaleX(1); }
+  45% { transform: translateX(20px) scaleX(1); }
+  50% { transform: translateX(20px) scaleX(-1); }
+  95% { transform: translateX(0) scaleX(-1); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
+.animate-move {
+  display: inline-block;
+  animation: move 3s ease-in-out infinite;
+}
+
+/* Konsep: Animasi Teks Marquee Berjalan Tanpa Henti */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Konsep: Kartu Bergaya Neo-Brutalisme (Tepi Tebal + Bayangan Tegas) */
+.gdg-card {
+  background-color: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 150ms ease-in-out;
+}
+
+.gdg-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--card-shadow-hover);
+}
