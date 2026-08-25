@@ -3,7 +3,18 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Code, Lock, Award, BookOpen, Briefcase, Terminal, X, ShoppingBag, RefreshCw } from "lucide-react";
+import {
+  ExternalLink,
+  Code,
+  Lock,
+  Award,
+  BookOpen,
+  Briefcase,
+  Terminal,
+  X,
+  ShoppingBag,
+  RefreshCw,
+} from "lucide-react";
 
 // Data structure & tipe properti project
 interface Project {
@@ -24,7 +35,8 @@ const projects: Project[] = [
   {
     title: "ACK Teams Hackathon",
     subtitle: "AI Quiz Generator Platform",
-    description: "Developed at the Build with AI Hackathon event by GDGOC BINUS @Alam Sutera, this platform automates quiz generation for teachers based on selected topics and grade levels.",
+    description:
+      "Developed at the Build with AI Hackathon event by GDGOC BINUS @Alam Sutera, this platform automates quiz generation for teachers based on selected topics and grade levels.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     color: "blue",
     icon: <Lock size={18} />,
@@ -58,7 +70,11 @@ const projects: Project[] = [
 // Data structure tech stack
 interface TechItem {
   name: string;
-  category: "Tech & Frameworks" | "Cyber Security Tools" | "Operating Systems" | "Productivity";
+  category:
+    | "Tech & Frameworks"
+    | "Cyber Security Tools"
+    | "Operating Systems"
+    | "Productivity";
   logoUrl: string;
   darkInvert?: boolean;
   tag: string;
@@ -67,39 +83,226 @@ interface TechItem {
 // List daftar tech stack & tools
 const techStack: TechItem[] = [
   // Tech & Frameworks
-  { name: "HTML5", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", tag: "Markup" },
-  { name: "CSS3", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", tag: "Styling" },
-  { name: "JavaScript", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", tag: "Scripting" },
-  { name: "TypeScript", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", tag: "Typed JS" },
-  { name: "React", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", tag: "Frontend Library" },
-  { name: "React Native", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", tag: "Mobile Apps" },
-  { name: "Next.js", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", darkInvert: true, tag: "Fullstack" },
-  { name: "Tailwind CSS", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", tag: "Styling" },
-  { name: "PHP", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", tag: "Backend" },
-  { name: "GO Lang", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg", tag: "Backend / Microservices" },
-  { name: "Laravel", category: "Tech & Frameworks", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg", tag: "PHP Framework" },
+  {
+    name: "HTML5",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    tag: "Markup",
+  },
+  {
+    name: "CSS3",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    tag: "Styling",
+  },
+  {
+    name: "JavaScript",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    tag: "Scripting",
+  },
+  {
+    name: "TypeScript",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    tag: "Fullstack",
+  },
+  {
+    name: "React",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    tag: "Frontend Library",
+  },
+  {
+    name: "React Native",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    tag: "Mobile Apps",
+  },
+  {
+    name: "Next.js",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    darkInvert: true,
+    tag: "Fullstack",
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    tag: "Styling",
+  },
+  {
+    name: "PHP",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    tag: "Backend",
+  },
+  {
+    name: "GO Lang",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+    tag: "Backend / Microservices",
+  },
+  {
+    name: "Laravel",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+    tag: "PHP Framework",
+  },
 
   // Cyber Security
-  { name: "Nmap", category: "Cyber Security Tools", logoUrl: "/Nmap-removebg-preview.png", tag: "Network Audit" },
-  { name: "Wireshark", category: "Cyber Security Tools", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/wireshark.svg", tag: "Packet Analysis" },
-  { name: "Metasploit", category: "Cyber Security Tools", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/metasploit.svg", tag: "Penetration Testing" },
-  { name: "Burp Suite", category: "Cyber Security Tools", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/portswigger.svg", tag: "Web Sec Auditing" },
+  {
+    name: "Nmap",
+    category: "Cyber Security Tools",
+    logoUrl: "/Nmap-removebg-preview.png",
+    tag: "Network Audit",
+  },
+  {
+    name: "Wireshark",
+    category: "Cyber Security Tools",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/wireshark.svg",
+    tag: "Packet Analysis",
+  },
+  {
+    name: "Metasploit",
+    category: "Cyber Security Tools",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/metasploit.svg",
+    tag: "Penetration Testing",
+  },
+  {
+    name: "Burp Suite",
+    category: "Cyber Security Tools",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/portswigger.svg",
+    tag: "Web Sec Auditing",
+  },
 
   // Operating Systems
-  { name: "Kali Linux", category: "Operating Systems", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kalilinux.svg", tag: "Security OS" },
-  { name: "Manjaro", category: "Operating Systems", logoUrl: "/Manjaro_Os-removebg-preview.png", tag: "Arch Linux" },
-  { name: "Athena OS", category: "Operating Systems", logoUrl: "/athena-os-logo-150x150-removebg-preview.png", tag: "Sec OS" },
-  { name: "Arch Linux", category: "Operating Systems", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/archlinux/archlinux-original.svg", tag: "Distro" },
-  { name: "Linux", category: "Operating Systems", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", tag: "Kernel" },
-  { name: "Windows", category: "Operating Systems", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", tag: "OS" },
+  {
+    name: "Kali Linux",
+    category: "Operating Systems",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kalilinux.svg",
+    tag: "Security OS",
+  },
+  {
+    name: "Manjaro",
+    category: "Operating Systems",
+    logoUrl: "/Manjaro_Os-removebg-preview.png",
+    tag: "Base Arch Linux",
+  },
+  {
+    name: "Athena OS",
+    category: "Operating Systems",
+    logoUrl: "/athena-os-logo-150x150-removebg-preview.png",
+    tag: "Security OS",
+  },
+  {
+    name: "Arch Linux",
+    category: "Operating Systems",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/archlinux/archlinux-original.svg",
+    tag: "Distro",
+  },
+  {
+    name: "Linux",
+    category: "Operating Systems",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+    tag: "Kernel",
+  },
+  {
+    name: "Black Arch",
+    category:"Operating Systems",
+    logoUrl:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJrgzoeM3BvZNlWo3CSB6QOfieq4WinwObtSUxhR2pDA&s=10",
+    tag:"Pentest OS",
+  },
+  {
+    name: "Windows",
+    category: "Operating Systems",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg",
+    tag: "OS",
+  },
 
   // Productivity
-  { name: "VS Code", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", tag: "IDE Editor" },
-  { name: "GitHub", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", darkInvert: true, tag: "Version Control" },
-  { name: "Figma", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", tag: "UI/UX Design" },
-  { name: "Microsoft Excel", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftexcel.svg", darkInvert: true, tag: "Data Analysis" },
-  { name: "Microsoft Word", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftword.svg", darkInvert: true, tag: "Documentation" },
-  { name: "Microsoft PowerPoint", category: "Productivity", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftpowerpoint.svg", darkInvert: true, tag: "Presentations" }
+  {
+    name: "VS Code",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    tag: "IDE Editor",
+  },
+  {
+    name: "GitHub",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    darkInvert: true,
+    tag: "Version Control",
+  },
+  {
+    name: "Figma",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    tag: "UI/UX Design",
+  },
+  {
+    name: "Microsoft Excel",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftexcel.svg",
+    darkInvert: true,
+    tag: "Data Analysis",
+  },
+  {
+    name: "Microsoft Word",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftword.svg",
+    darkInvert: true,
+    tag: "Documentation",
+  },
+  {
+    name: "Microsoft PowerPoint",
+    category: "Productivity",
+    logoUrl:
+      "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftpowerpoint.svg",
+    darkInvert: true,
+    tag: "Presentations",
+  },
+  {
+    name: "Photoshop",
+    category: "Productivity",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU2hvPAxVs5rt5-wVTKdn4kZDtnfJW8UN90YJuclPriA&s=10",
+    darkInvert: true,
+    tag: "Editing",
+  },
+  {
+    name:"GIMP",
+    category:"Productivity",
+    logoUrl:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRomIPgSxP7F0r3uR-eXgsytaK7d5YDRj5fWeNwg8WdRA&s=10",
+    darkInvert:true,
+    tag:"Editing",
+  }
 ];
 
 // Data structure sertifikat
@@ -117,7 +320,8 @@ const certificates: Certificate[] = [
     title: "HackerOne Inside for Cyber Security Enthusiast",
     issuer: "CodeLamp And HackerOne",
     date: "2025",
-    credentialUrl: "/certificates/HackerOne_Inside_for_Cyber_Security_Enthusiast.pdf",
+    credentialUrl:
+      "/certificates/HackerOne_Inside_for_Cyber_Security_Enthusiast.pdf",
     color: "blue",
   },
   {
@@ -131,7 +335,8 @@ const certificates: Certificate[] = [
     title: "Penerapan Data Science Dengan Microsoft Fabric",
     issuer: "Dicoding And Microsoft",
     date: "2025",
-    credentialUrl: "/certificates/Penerapan-Data-Science-dengan-Microsoft-Fabric.pdf",
+    credentialUrl:
+      "/certificates/Penerapan-Data-Science-dengan-Microsoft-Fabric.pdf",
     color: "blue",
   },
   {
@@ -142,7 +347,8 @@ const certificates: Certificate[] = [
     color: "green",
   },
   {
-    title: "Why Your Game Isn't Selling: Market Validation for Indie Developers",
+    title:
+      "Why Your Game Isn't Selling: Market Validation for Indie Developers",
     issuer: "Dicoding",
     date: "2025",
     credentialUrl: "/certificates/Market-Validation-for-Indie-Developers.pdf",
@@ -173,14 +379,16 @@ const certificates: Certificate[] = [
     title: "From Vision to Version 1.0: Roadmapping Your Game Effectively",
     issuer: "CodeLamp Indonesia",
     date: "2025",
-    credentialUrl: "/certificates/From Vision to Version 1.0_ Roadmapping Your Game Effectively.pdf",
+    credentialUrl:
+      "/certificates/From Vision to Version 1.0_ Roadmapping Your Game Effectively.pdf",
     color: "red",
   },
   {
     title: "Game Design: From Hobby to Hook",
     issuer: "CodeLamp Indonesia",
     date: "2025",
-    credentialUrl: "/certificates/Game Design_ From Hobby to Hook - Hooked in Minutes, Engaged for Days.pdf",
+    credentialUrl:
+      "/certificates/Game Design_ From Hobby to Hook - Hooked in Minutes, Engaged for Days.pdf",
     color: "pink",
   },
 ];
@@ -225,7 +433,7 @@ const colorMap = {
 type TabType = "projects" | "tech" | "certificates";
 type WebsiteStatus = "checking" | "online" | "offline";
 
-export default function ProjectGrid({ }: { showContent?: boolean }) {
+export default function ProjectGrid({}: { showContent?: boolean }) {
   const [activeTab, setActiveTab] = useState<TabType>("projects");
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
   const [statusMap, setStatusMap] = useState<Record<string, WebsiteStatus>>({});
@@ -241,7 +449,11 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
       const timeoutId = setTimeout(() => controller.abort(), 5000);
 
       // Ping HEAD request dengan fallback GET
-      fetch(project.liveUrl, { method: "HEAD", mode: "no-cors", signal: controller.signal })
+      fetch(project.liveUrl, {
+        method: "HEAD",
+        mode: "no-cors",
+        signal: controller.signal,
+      })
         .then(() => {
           clearTimeout(timeoutId);
           setStatusMap((prev) => ({ ...prev, [project.title]: "online" }));
@@ -249,8 +461,12 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
         .catch(() => {
           clearTimeout(timeoutId);
           fetch(project.liveUrl!, { mode: "no-cors" })
-            .then(() => setStatusMap((prev) => ({ ...prev, [project.title]: "online" })))
-            .catch(() => setStatusMap((prev) => ({ ...prev, [project.title]: "offline" })));
+            .then(() =>
+              setStatusMap((prev) => ({ ...prev, [project.title]: "online" })),
+            )
+            .catch(() =>
+              setStatusMap((prev) => ({ ...prev, [project.title]: "offline" })),
+            );
         });
     });
   }, []);
@@ -258,7 +474,6 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
   return (
     <section id="work" className="py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Header Seksi (Judul Utama & Tab Sub-Navigasi) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="text-center md:text-left">
@@ -278,17 +493,21 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
               const labels = {
                 projects: { text: "Projects", icon: <Briefcase size={15} /> },
                 tech: { text: "Tech Stack", icon: <Terminal size={15} /> },
-                certificates: { text: "Certificates", icon: <Award size={15} /> },
+                certificates: {
+                  text: "Certificates",
+                  icon: <Award size={15} />,
+                },
               };
 
               return (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex items-center gap-2 px-4 py-2.5 text-xs font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer ${isActive
-                    ? "bg-google-blue text-white border-black shadow-[3px_3px_0px_#000]"
-                    : "bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-transparent hover:border-black dark:hover:border-zinc-600"
-                    }`}
+                  className={`flex items-center gap-2 px-4 py-2.5 text-xs font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-google-blue text-white border-black shadow-[3px_3px_0px_#000]"
+                      : "bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-transparent hover:border-black dark:hover:border-zinc-600"
+                  }`}
                 >
                   {labels[tab].icon}
                   {labels[tab].text}
@@ -301,7 +520,6 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
         {/* Tab Content Container */}
         <div className="min-h-105">
           <AnimatePresence mode="wait">
-
             {/* Projects Tab */}
             {activeTab === "projects" && (
               <motion.div
@@ -324,8 +542,9 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                       <div className="flex flex-col h-full justify-between">
                         <div>
                           {/* Banner preview project */}
-                          <div className={`relative w-full aspect-video mb-5 rounded-xl border-2 border-black dark:border-zinc-700 overflow-hidden ${colors.badge} p-4 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] flex flex-col justify-between group/banner bg-zinc-900`}>
-
+                          <div
+                            className={`relative w-full aspect-video mb-5 rounded-xl border-2 border-black dark:border-zinc-700 overflow-hidden ${colors.badge} p-4 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] flex flex-col justify-between group/banner bg-zinc-900`}
+                          >
                             {/* Live screenshot otomatis */}
                             {project.liveUrl && (
                               <Image
@@ -335,7 +554,8 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                                 unoptimized
                                 className="absolute inset-0 object-cover object-top opacity-85 group-hover/banner:scale-105 transition-transform duration-500 z-0"
                                 onError={(e) => {
-                                  (e.target as HTMLElement).style.display = 'none';
+                                  (e.target as HTMLElement).style.display =
+                                    "none";
                                 }}
                               />
                             )}
@@ -367,13 +587,18 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                             {/* Badge domain & status online/offline */}
                             <div className="z-10 mt-auto pt-4 flex items-center justify-between gap-2 flex-wrap">
                               <span className="inline-block px-2.5 py-1 bg-black/80 text-white rounded-md text-[10px] font-bold tracking-wider uppercase border border-white/20 backdrop-blur-sm">
-                                {project.liveUrl ? new URL(project.liveUrl).hostname : "Live App"}
+                                {project.liveUrl
+                                  ? new URL(project.liveUrl).hostname
+                                  : "Live App"}
                               </span>
 
                               {/* Indikator Lencana Status Keaktifan Server Target */}
                               {status === "checking" && (
                                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/80 text-yellow-300 rounded-md text-[10px] font-extrabold uppercase tracking-wider border border-yellow-400/40 backdrop-blur-sm shadow-[1px_1px_0px_#000]">
-                                  <RefreshCw size={10} className="animate-spin text-yellow-300" />
+                                  <RefreshCw
+                                    size={10}
+                                    className="animate-spin text-yellow-300"
+                                  />
                                   Checking
                                 </span>
                               )}
@@ -424,13 +649,16 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                               href={project.liveUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 font-black uppercase text-xs rounded-xl shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#000] transition-all cursor-pointer border-2 border-black ${status === "offline"
-                                ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-400 dark:border-zinc-700 hover:bg-zinc-300"
-                                : "bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-google-blue hover:text-white dark:hover:bg-google-blue dark:hover:text-white hover:border-black active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]"
-                                }`}
+                              className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 font-black uppercase text-xs rounded-xl shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#000] transition-all cursor-pointer border-2 border-black ${
+                                status === "offline"
+                                  ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-400 dark:border-zinc-700 hover:bg-zinc-300"
+                                  : "bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-google-blue hover:text-white dark:hover:bg-google-blue dark:hover:text-white hover:border-black active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]"
+                              }`}
                             >
                               <ExternalLink size={14} />
-                              {status === "offline" ? "View Project (Offline) ↗" : "View Project ↗"}
+                              {status === "offline"
+                                ? "View Project (Offline) ↗"
+                                : "View Project ↗"}
                             </a>
                           )}
                         </div>
@@ -451,12 +679,31 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                 transition={{ duration: 0.25 }}
                 className="space-y-10"
               >
-                {(["Tech & Frameworks", "Cyber Security Tools", "Operating Systems", "Productivity"] as const).map((cat) => {
+                {(
+                  [
+                    "Tech & Frameworks",
+                    "Cyber Security Tools",
+                    "Operating Systems",
+                    "Productivity",
+                  ] as const
+                ).map((cat) => {
                   const themeColors = {
-                    "Tech & Frameworks": { dot: "bg-google-blue", border: "border-google-blue" },
-                    "Cyber Security Tools": { dot: "bg-google-red", border: "border-google-red" },
-                    "Operating Systems": { dot: "bg-google-green", border: "border-google-green" },
-                    "Productivity": { dot: "bg-google-yellow", border: "border-google-yellow" },
+                    "Tech & Frameworks": {
+                      dot: "bg-google-blue",
+                      border: "border-google-blue",
+                    },
+                    "Cyber Security Tools": {
+                      dot: "bg-google-red",
+                      border: "border-google-red",
+                    },
+                    "Operating Systems": {
+                      dot: "bg-google-green",
+                      border: "border-google-green",
+                    },
+                    Productivity: {
+                      dot: "bg-google-yellow",
+                      border: "border-google-yellow",
+                    },
                   };
 
                   const items = techStack.filter((t) => t.category === cat);
@@ -465,7 +712,9 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                     <div key={cat} className="space-y-4">
                       {/* Judul Kategori & Hitungan Jumlah Alat (Tools Count) */}
                       <div className="flex items-center gap-3 pb-2 border-b-2 border-black dark:border-zinc-800">
-                        <span className={`w-3.5 h-3.5 rounded-full ${themeColors[cat].dot} border-2 border-black shadow-[1px_1px_0px_#000]`} />
+                        <span
+                          className={`w-3.5 h-3.5 rounded-full ${themeColors[cat].dot} border-2 border-black shadow-[1px_1px_0px_#000]`}
+                        />
                         <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-zinc-900 dark:text-white font-heading">
                           {cat}
                         </h3>
@@ -491,14 +740,18 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                                 unoptimized
                                 className={`w-full h-full object-contain ${tech.darkInvert ? "dark:invert" : ""}`}
                                 onError={(e) => {
-                                  (e.target as HTMLElement).style.display = "none";
+                                  (e.target as HTMLElement).style.display =
+                                    "none";
                                 }}
                               />
                             </div>
 
                             {/* Label Nama Teknologi & Tag Spesialisasi */}
                             <div className="mt-2.5 space-y-1 w-full">
-                              <h4 className="text-xs font-black uppercase text-zinc-950 dark:text-white truncate font-heading" title={tech.name}>
+                              <h4
+                                className="text-xs font-black uppercase text-zinc-950 dark:text-white truncate font-heading"
+                                title={tech.name}
+                              >
                                 {tech.name}
                               </h4>
                               <span className="inline-block px-1.5 py-0.5 text-[9px] font-bold text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 rounded border border-zinc-300 dark:border-zinc-700 truncate max-w-full">
@@ -526,7 +779,10 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
               >
                 {certificates.map((cert) => {
                   const colors = colorMap[cert.color] || colorMap.blue;
-                  const thumbFilename = cert.credentialUrl.split("/").pop()?.replace(/\.pdf$/i, ".png");
+                  const thumbFilename = cert.credentialUrl
+                    .split("/")
+                    .pop()
+                    ?.replace(/\.pdf$/i, ".png");
                   const thumbUrl = `/certificates/thumbnails/${thumbFilename}`;
 
                   return (
@@ -555,7 +811,9 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
                           </div>
 
                           {/* Lencana Terverifikasi (Top Left Badge) */}
-                          <div className={`absolute top-2.5 left-2.5 px-2 py-1 rounded border-2 border-black ${colors.badge} flex items-center gap-1 shadow-[2px_2px_0px_#000] text-[10px] font-black uppercase tracking-wider`}>
+                          <div
+                            className={`absolute top-2.5 left-2.5 px-2 py-1 rounded border-2 border-black ${colors.badge} flex items-center gap-1 shadow-[2px_2px_0px_#000] text-[10px] font-black uppercase tracking-wider`}
+                          >
                             <Award size={12} />
                             Verified
                           </div>
@@ -568,11 +826,17 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
 
                         {/* Judul Sertifikat & Organisasi Penerbit */}
                         <div className="space-y-1.5 mb-5 px-1">
-                          <h3 className="text-sm sm:text-base font-black font-heading uppercase text-zinc-900 dark:text-white leading-snug line-clamp-2 min-h-10" title={cert.title}>
+                          <h3
+                            className="text-sm sm:text-base font-black font-heading uppercase text-zinc-900 dark:text-white leading-snug line-clamp-2 min-h-10"
+                            title={cert.title}
+                          >
                             {cert.title}
                           </h3>
                           <p className="text-[11px] sm:text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase flex items-center gap-1.5 truncate">
-                            <BookOpen size={12} className="shrink-0 text-zinc-400" />
+                            <BookOpen
+                              size={12}
+                              className="shrink-0 text-zinc-400"
+                            />
                             <span className="truncate">{cert.issuer}</span>
                           </p>
                         </div>
@@ -615,7 +879,9 @@ export default function ProjectGrid({ }: { showContent?: boolean }) {
             >
               {/* Header Modal Popup */}
               <div className="flex items-center justify-between p-4 border-b-4 border-black dark:border-zinc-700 bg-google-blue text-white select-none">
-                <span className="text-sm font-black uppercase tracking-wider font-heading">Certificate Viewer</span>
+                <span className="text-sm font-black uppercase tracking-wider font-heading">
+                  Certificate Viewer
+                </span>
                 <button
                   onClick={() => setSelectedCert(null)}
                   className="p-1.5 rounded-lg border-2 border-black bg-white text-black hover:bg-zinc-150 shadow-[2px_2px_0px_#000] active:translate-x-px active:translate-y-px active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"

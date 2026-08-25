@@ -10,7 +10,7 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [isColorActive, setIsColorActive] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
-
+  
   // State to track website rendering readiness percentage (0% - 100%)
   const [progress, setProgress] = useState(0);
 
