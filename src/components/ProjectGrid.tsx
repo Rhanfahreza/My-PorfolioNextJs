@@ -15,6 +15,7 @@ import {
   ShoppingBag,
   RefreshCw,
 } from "lucide-react";
+import { dot } from "node:test/reporters";
 
 // Data structure & tipe properti project
 interface Project {
@@ -74,7 +75,8 @@ interface TechItem {
     | "Tech & Frameworks"
     | "Cyber Security Tools"
     | "Operating Systems"
-    | "Productivity";
+    | "Productivity"
+    | "Database";
   logoUrl: string;
   darkInvert?: boolean;
   tag: string;
@@ -162,6 +164,22 @@ const techStack: TechItem[] = [
     tag: "PHP Framework",
   },
 
+  //Database1
+  {
+    name: "My SQL",
+    category: "Database",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmV_XiTo70tV_5jyXZf81j9UT33OFslZge-6l_EaPNuQ&s=10",
+    tag: "DBMS",
+  },
+  {
+    name: "Postgree SQL",
+    category: "Database",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPJ5POJk0x-JpS68wRxqGPYtqQVmEBDhnv9FENtOzU8Sy_ntLI2LwLK7ft&s=10",
+    tag: "DBMS",
+  },
+
   // Cyber Security
   {
     name: "Nmap",
@@ -189,6 +207,20 @@ const techStack: TechItem[] = [
     logoUrl:
       "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/portswigger.svg",
     tag: "Web Sec Auditing",
+  },
+  {
+    name: "Aircrack-ng",
+    category: "Cyber Security Tools",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlG0tjlvB6jARWysjxUb_9Su2aggTiQWfr7QoY9_GOwA&s=10",
+    tag: "Network Sec",
+  },
+  {
+    name: "Wifite",
+    category: "Cyber Security Tools",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKV7VqoEzUeoXHryi7KrQBKgbOVLd5fmEG2DYuaZYiAw&s",
+    tag: "Network Sec",
   },
 
   // Operating Systems
@@ -227,10 +259,10 @@ const techStack: TechItem[] = [
   },
   {
     name: "Black Arch",
-    category:"Operating Systems",
+    category: "Operating Systems",
     logoUrl:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJrgzoeM3BvZNlWo3CSB6QOfieq4WinwObtSUxhR2pDA&s=10",
-    tag:"Pentest OS",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJrgzoeM3BvZNlWo3CSB6QOfieq4WinwObtSUxhR2pDA&s=10",
+    tag: "Pentest OS",
   },
   {
     name: "Windows",
@@ -296,13 +328,21 @@ const techStack: TechItem[] = [
     tag: "Editing",
   },
   {
-    name:"GIMP",
-    category:"Productivity",
+    name: "GIMP",
+    category: "Productivity",
     logoUrl:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRomIPgSxP7F0r3uR-eXgsytaK7d5YDRj5fWeNwg8WdRA&s=10",
-    darkInvert:true,
-    tag:"Editing",
-  }
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRomIPgSxP7F0r3uR-eXgsytaK7d5YDRj5fWeNwg8WdRA&s=10",
+    darkInvert: true,
+    tag: "Editing",
+  },
+  {
+    name: "Docker",
+    category: "Productivity",
+    logoUrl:
+      "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/docker-icon.png",
+    darkInvert: true,
+    tag: "Tools / Utilities",
+  },
 ];
 
 // Data structure sertifikat
@@ -416,7 +456,7 @@ const colorMap = {
   purple: {
     badge: "bg-purple-600 text-white",
     border: "hover:border-purple-600",
-    dot: "bg-purple-600",
+    dot: "bg-google-purple",
   },
   yellow: {
     badge: "bg-google-yellow text-black",
@@ -682,6 +722,7 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
                 {(
                   [
                     "Tech & Frameworks",
+                    "Database",
                     "Cyber Security Tools",
                     "Operating Systems",
                     "Productivity",
@@ -691,6 +732,10 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
                     "Tech & Frameworks": {
                       dot: "bg-google-blue",
                       border: "border-google-blue",
+                    },
+                    Database: {
+                      dot: "bg-google-purple",
+                      border: "border-google-purple",
                     },
                     "Cyber Security Tools": {
                       dot: "bg-google-red",
