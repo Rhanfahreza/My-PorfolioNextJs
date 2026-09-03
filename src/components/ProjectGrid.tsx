@@ -164,7 +164,7 @@ const techStack: TechItem[] = [
     tag: "PHP Framework",
   },
 
-  //Database1
+  //Database
   {
     name: "My SQL",
     category: "Database",
@@ -295,6 +295,31 @@ const techStack: TechItem[] = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
     tag: "UI/UX Design",
   },
+
+  {
+    name: "Photoshop",
+    category: "Productivity",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU2hvPAxVs5rt5-wVTKdn4kZDtnfJW8UN90YJuclPriA&s=10",
+    darkInvert: true,
+    tag: "Editing",
+  },
+  {
+    name: "GIMP",
+    category: "Productivity",
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRomIPgSxP7F0r3uR-eXgsytaK7d5YDRj5fWeNwg8WdRA&s=10",
+    darkInvert: true,
+    tag: "Editing",
+  },
+  {
+    name: "Docker",
+    category: "Productivity",
+    logoUrl:
+      "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/docker-icon.png",
+    darkInvert: true,
+    tag: "CI/CD",
+  },
   {
     name: "Microsoft Excel",
     category: "Productivity",
@@ -318,30 +343,6 @@ const techStack: TechItem[] = [
       "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftpowerpoint.svg",
     darkInvert: true,
     tag: "Presentations",
-  },
-  {
-    name: "Photoshop",
-    category: "Productivity",
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU2hvPAxVs5rt5-wVTKdn4kZDtnfJW8UN90YJuclPriA&s=10",
-    darkInvert: true,
-    tag: "Editing",
-  },
-  {
-    name: "GIMP",
-    category: "Productivity",
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRomIPgSxP7F0r3uR-eXgsytaK7d5YDRj5fWeNwg8WdRA&s=10",
-    darkInvert: true,
-    tag: "Editing",
-  },
-  {
-    name: "Docker",
-    category: "Productivity",
-    logoUrl:
-      "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/docker-icon.png",
-    darkInvert: true,
-    tag: "Tools / Utilities",
   },
 ];
 
