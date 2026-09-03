@@ -318,7 +318,7 @@ const techStack: TechItem[] = [
     logoUrl:
       "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/docker-icon.png",
     darkInvert: true,
-    tag: "CI/CD",
+    tag: "Tools / Utilities",
   },
   {
     name: "Microsoft Excel",
