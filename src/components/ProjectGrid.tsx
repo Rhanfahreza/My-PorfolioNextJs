@@ -73,7 +73,7 @@ const projects: Project[] = [
       "Automated Attack Surface Reconnaissance & Web Security Audit Engine",
     tags: ["python"],
     color: "blue",
-    icon: <Terminal size={18} />,
+    icon: <Lock size={18} />,
     liveUrl: "https://github.com/Rhanfahreza/SuperJamboyyy-Tools",
     mockBg: "from-rose-600/20 via-orange-500/10 to-transparent",
   },
