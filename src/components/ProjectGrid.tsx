@@ -66,6 +66,17 @@ const projects: Project[] = [
     liveUrl: "https://toko-casual-production.up.railway.app/login.php",
     mockBg: "from-rose-600/20 via-orange-500/10 to-transparent",
   },
+  {
+    title: "SuperJamboyTools",
+    subtitle: "Tools Cyber Security",
+    description:
+      "Automated Attack Surface Reconnaissance & Web Security Audit Engine",
+    tags: ["python"],
+    color: "blue",
+    icon: <Terminal size={18} />,
+    liveUrl: "https://github.com/Rhanfahreza/SuperJamboyyy-Tools",
+    mockBg: "from-rose-600/20 via-orange-500/10 to-transparent",
+  },
 ];
 
 // Data structure tech stack
