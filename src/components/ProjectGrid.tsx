@@ -262,13 +262,6 @@ const techStack: TechItem[] = [
     tag: "Distro",
   },
   {
-    name: "Linux",
-    category: "Operating Systems",
-    logoUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-    tag: "Kernel",
-  },
-  {
     name: "Black Arch",
     category: "Operating Systems",
     logoUrl:
