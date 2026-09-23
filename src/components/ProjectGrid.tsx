@@ -132,19 +132,11 @@ const techStack: TechItem[] = [
     tag: "Frontend Library",
   },
   {
-    name: "React Native",
+    name: "GO Lang",
     category: "Tech & Frameworks",
     logoUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    tag: "Mobile Apps",
-  },
-  {
-    name: "Next.js",
-    category: "Tech & Frameworks",
-    logoUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-    darkInvert: true,
-    tag: "Fullstack",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+    tag: "Backend / Microservices",
   },
   {
     name: "Tailwind CSS",
@@ -161,11 +153,19 @@ const techStack: TechItem[] = [
     tag: "Backend",
   },
   {
-    name: "GO Lang",
+    name: "Next.js",
     category: "Tech & Frameworks",
     logoUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
-    tag: "Backend / Microservices",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    darkInvert: true,
+    tag: "Fullstack",
+  },
+  {
+    name: "React Native",
+    category: "Tech & Frameworks",
+    logoUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    tag: "Mobile Apps",
   },
   {
     name: "Laravel",
@@ -173,6 +173,13 @@ const techStack: TechItem[] = [
     logoUrl:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
     tag: "PHP Framework",
+  },
+
+  {
+    name: "Go Fiber",
+    category: "Tech & Frameworks",
+    logoUrl: "https://avatars.githubusercontent.com/u/59947262?s=160&v=4",
+    tag: "Go Framework",
   },
 
   //Database
