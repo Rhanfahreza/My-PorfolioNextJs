@@ -21,13 +21,6 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
   const word3 = "FAHREZA".split("");
 
   useEffect(() => {
-    // Khusus desktop (lebar layar >= 768px), lewati loading screen seketika
-    if (typeof window !== "undefined" && window.innerWidth >= 768) {
-      setIsVisible(false);
-      onFinished();
-      return;
-    }
-
     // Jika prefers-reduced-motion aktif, selesaikan loader secepat mungkin
     if (reducedMotion) {
       setProgress(100);
@@ -175,7 +168,7 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#F8F9FA] dark:bg-[#0f1013] text-[#202124] dark:text-[#e8eaed] transition-all duration-600 ease-out-expo md:hidden ${
+      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#F8F9FA] dark:bg-[#0f1013] text-[#202124] dark:text-[#e8eaed] transition-all duration-600 ease-out-expo ${
         isFadingOut ? "opacity-0 pointer-events-none scale-102" : "opacity-100"
       }`}
     >

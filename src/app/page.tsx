@@ -42,12 +42,6 @@ export default function Home() {
         window.history.scrollRestoration = "manual";
       }
       window.scrollTo(0, 0);
-
-      // Khusus desktop (>= 768px), langsung tampilkan seluruh halaman tanpa delay loading screen
-      if (window.innerWidth >= 768) {
-        setShowContent(true);
-        document.documentElement.setAttribute("data-rendered", "true");
-      }
     }
 
     // Fallback pengaman jika callback IntroLoader tidak terpicu di mobile
