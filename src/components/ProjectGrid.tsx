@@ -14,8 +14,9 @@ import {
   X,
   ShoppingBag,
   RefreshCw,
+  LayoutGrid,
 } from "lucide-react";
-import { dot } from "node:test/reporters";
+import ExperienceMenu, { ExperienceTab } from "./ExperienceMenu";
 
 // Data structure & tipe properti project
 interface Project {
@@ -485,102 +486,196 @@ const colorMap = {
 type TabType = "projects" | "tech" | "certificates";
 type WebsiteStatus = "checking" | "online" | "offline";
 
-export default function ProjectGrid({}: { showContent?: boolean }) {
-  const [activeTab, setActiveTab] = useState<TabType>("projects");
+interface ProjectGridProps {
+  showContent?: boolean;
+  activeTab?: TabType;
+  onTabChange?: (tab: TabType) => void;
+  viewMode?: "menu" | "content";
+  onViewModeChange?: (mode: "menu" | "content") => void;
+}
+
+const TAB_INDEX: Record<TabType, number> = {
+  projects: 0,
+  tech: 1,
+  certificates: 2,
+};
+
+export default function ProjectGrid({
+  activeTab: externalTab,
+  onTabChange,
+  viewMode: externalViewMode,
+  onViewModeChange,
+}: ProjectGridProps) {
+  const [internalTab, setInternalTab] = useState<TabType>("projects");
+  const activeTab = externalTab ?? internalTab;
+  const setActiveTab = onTabChange ?? setInternalTab;
+
+  const [internalViewMode, setInternalViewMode] = useState<"menu" | "content">("content");
+  const viewMode = externalViewMode ?? internalViewMode;
+  const setViewMode = onViewModeChange ?? setInternalViewMode;
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
   const [statusMap, setStatusMap] = useState<Record<string, WebsiteStatus>>({});
 
-  // Deteksi status online/offline setiap link live project
+  // State arah geser horizontal (1: maju ke kanan, -1: mundur ke kiri)
+  const [prevTab, setPrevTab] = useState<TabType>(activeTab);
+  const [direction, setDirection] = useState<number>(1);
+
   useEffect(() => {
-    projects.forEach((project) => {
-      if (!project.liveUrl) return;
+    if (activeTab !== prevTab) {
+      const dir = TAB_INDEX[activeTab] >= TAB_INDEX[prevTab] ? 1 : -1;
+      setDirection(dir);
+      setPrevTab(activeTab);
+    }
+  }, [activeTab, prevTab]);
 
-      setStatusMap((prev) => ({ ...prev, [project.title]: "checking" }));
+  const easeSmooth = [0.16, 1, 0.3, 1] as const;
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      x: "0%",
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? "-100%" : "100%",
+      opacity: 0,
+    }),
+  };
 
-      // Ping HEAD request dengan fallback GET
-      fetch(project.liveUrl, {
-        method: "HEAD",
-        mode: "no-cors",
-        signal: controller.signal,
-      })
-        .then(() => {
-          clearTimeout(timeoutId);
-          setStatusMap((prev) => ({ ...prev, [project.title]: "online" }));
+  // Deteksi status online/offline setiap link live project (ditunda agar tidak membebani load awal halaman)
+  useEffect(() => {
+    const deferTimer = setTimeout(() => {
+      projects.forEach((project) => {
+        if (!project.liveUrl) return;
+
+        setStatusMap((prev) => ({ ...prev, [project.title]: "checking" }));
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        // Ping HEAD request dengan fallback GET
+        fetch(project.liveUrl, {
+          method: "HEAD",
+          mode: "no-cors",
+          signal: controller.signal,
         })
-        .catch(() => {
-          clearTimeout(timeoutId);
-          fetch(project.liveUrl!, { mode: "no-cors" })
-            .then(() =>
-              setStatusMap((prev) => ({ ...prev, [project.title]: "online" })),
-            )
-            .catch(() =>
-              setStatusMap((prev) => ({ ...prev, [project.title]: "offline" })),
-            );
-        });
-    });
+          .then(() => {
+            clearTimeout(timeoutId);
+            setStatusMap((prev) => ({ ...prev, [project.title]: "online" }));
+          })
+          .catch(() => {
+            clearTimeout(timeoutId);
+            fetch(project.liveUrl!, { mode: "no-cors" })
+              .then(() =>
+                setStatusMap((prev) => ({ ...prev, [project.title]: "online" })),
+              )
+              .catch(() =>
+                setStatusMap((prev) => ({ ...prev, [project.title]: "offline" })),
+              );
+          });
+      });
+    }, 1200);
+
+    return () => clearTimeout(deferTimer);
   }, []);
 
   return (
     <section id="work" className="py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Seksi (Judul Utama & Tab Sub-Navigasi) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div className="text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-blue text-white text-xs font-bold uppercase tracking-wider mb-3 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000]">
-              Portfolio Showcase
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight">
-              Projects &amp; Skills
-            </h2>
-            <div className="w-16 h-2 bg-google-blue border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-2 mx-auto md:mx-0"></div>
-          </div>
+        <AnimatePresence mode="wait">
+          {viewMode === "menu" ? (
+            <ExperienceMenu
+              key="experience-menu-view"
+              onSelectTab={(selectedTab) => {
+                setActiveTab(selectedTab);
+                setViewMode("content");
+              }}
+              onSkipToContent={() => {
+                setViewMode("content");
+              }}
+            />
+          ) : (
+            <motion.div
+              key="experience-content-view"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Header Seksi (Judul Utama Dinamis sesuai Tab Aktif + Tombol Kembali ke Menu) */}
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
+                <div className="text-center md:text-left">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
+                    <button
+                      onClick={() => setViewMode("menu")}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-black dark:text-white text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] transition-all hover:-translate-y-0.5 cursor-pointer"
+                      title="Kembali ke Menu Awal Experience"
+                    >
+                      <LayoutGrid size={13} className="text-google-blue" />
+                      <span>← Menu Hub</span>
+                    </button>
+                    <span className="text-xs font-mono font-bold text-zinc-400">/</span>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-google-blue">
+                      {activeTab}
+                    </span>
+                  </div>
 
-          {/* Sub Navigation (Tabs) */}
-          <div className="flex flex-wrap justify-center gap-2.5 bg-zinc-100 dark:bg-zinc-900/60 p-2 rounded-xl border-2 border-black dark:border-zinc-800 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.1)] mx-auto md:mx-0">
-            {(["projects", "tech", "certificates"] as TabType[]).map((tab) => {
-              const isActive = activeTab === tab;
-              const labels = {
-                projects: { text: "Projects", icon: <Briefcase size={15} /> },
-                tech: { text: "Tech Stack", icon: <Terminal size={15} /> },
-                certificates: {
-                  text: "Certificates",
-                  icon: <Award size={15} />,
-                },
-              };
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight transition-all duration-200">
+                    {activeTab === "projects"
+                      ? "Projects"
+                      : activeTab === "tech"
+                      ? "Tech Stack"
+                      : "Certificates"}
+                  </h2>
+                  <div className="w-16 h-2 bg-google-blue border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-2 mx-auto md:mx-0"></div>
+                </div>
 
-              return (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex items-center gap-2 px-4 py-2.5 text-xs font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-google-blue text-white border-black shadow-[3px_3px_0px_#000]"
-                      : "bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-transparent hover:border-black dark:hover:border-zinc-600"
-                  }`}
-                >
-                  {labels[tab].icon}
-                  {labels[tab].text}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+                {/* Sub-navigasi Tab permanen (Tampil di Desktop & Mobile agar mudah berpindah kapan saja) */}
+                <div className="flex justify-center md:justify-end gap-2 bg-zinc-100 dark:bg-zinc-900/60 p-1.5 rounded-xl border-2 border-black dark:border-zinc-800 shadow-[3px_3px_0px_#000]">
+                  {(["projects", "tech", "certificates"] as TabType[]).map((tab) => {
+                    const isActive = activeTab === tab;
+                    const labels = {
+                      projects: { text: "Projects", icon: <Briefcase size={13} /> },
+                      tech: { text: "Tech Stack", icon: <Terminal size={13} /> },
+                      certificates: { text: "Certificates", icon: <Award size={13} /> },
+                    };
 
-        {/* Tab Content Container */}
-        <div className="min-h-105">
-          <AnimatePresence mode="wait">
+                    return (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black uppercase rounded-lg border transition-all cursor-pointer ${
+                          isActive
+                            ? "bg-google-blue text-white border-black shadow-[2px_2px_0px_#000]"
+                            : "bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-transparent hover:border-black/20"
+                        }`}
+                      >
+                        {labels[tab].icon}
+                        <span className="hidden sm:inline">{labels[tab].text}</span>
+                        <span className="sm:hidden">{labels[tab].text.split(" ")[0]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Tab Content Container dengan overflow-hidden agar slide horizontal tidak bocor */}
+              <div className="min-h-105 overflow-hidden relative w-full">
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
             {/* Projects Tab */}
             {activeTab === "projects" && (
               <motion.div
                 key="projects-tab"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.65, ease: easeSmooth }}
+                className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
               >
                 {projects.map((project) => {
                   const colors = colorMap[project.color];
@@ -597,23 +692,39 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
                           <div
                             className={`relative w-full aspect-video mb-5 rounded-xl border-2 border-black dark:border-zinc-700 overflow-hidden ${colors.badge} p-4 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] flex flex-col justify-between group/banner bg-zinc-900`}
                           >
-                            {/* Live screenshot otomatis */}
-                            {project.liveUrl && (
+                            {/* Mock Window Header Dots & Grid Accent */}
+                            <div className="absolute top-3 right-3 flex items-center gap-1.5 opacity-80 z-10 pointer-events-none">
+                              <span className="w-2 h-2 rounded-full bg-google-red border border-black/40" />
+                              <span className="w-2 h-2 rounded-full bg-google-yellow border border-black/40" />
+                              <span className="w-2 h-2 rounded-full bg-google-green border border-black/40" />
+                            </div>
+
+                            {/* Screenshot project atau mock UI */}
+                            {project.imageUrl ? (
+                              <Image
+                                src={project.imageUrl}
+                                alt={`${project.title} screenshot`}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                className="absolute inset-0 object-cover object-top opacity-85 group-hover/banner:scale-105 transition-transform duration-500 z-0"
+                              />
+                            ) : project.liveUrl ? (
                               <Image
                                 src={`https://s0.wp.com/mshots/v1/${encodeURIComponent(project.liveUrl)}?w=800&h=500`}
                                 alt={`${project.title} live screenshot`}
                                 fill
                                 unoptimized
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 className="absolute inset-0 object-cover object-top opacity-85 group-hover/banner:scale-105 transition-transform duration-500 z-0"
                                 onError={(e) => {
                                   (e.target as HTMLElement).style.display =
                                     "none";
                                 }}
                               />
-                            )}
+                            ) : null}
 
                             {/* Overlay Lapisan Gelap untuk Keterbacaan Teks */}
-                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/60 z-1" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/45 to-black/60 z-1 pointer-events-none" />
 
                             {/* Baris Atas Banner: Ikon Akses & Tombol Link Cepat */}
                             <div className="flex items-center justify-between z-10">
@@ -621,7 +732,7 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
                                 {project.icon}
                               </div>
 
-                              <div className="flex items-center gap-1.5">
+                              <div className="flex items-center gap-1.5 mr-10">
                                 {project.githubUrl && (
                                   <a
                                     href={project.githubUrl}
@@ -725,11 +836,13 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
             {activeTab === "tech" && (
               <motion.div
                 key="tech-tab"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25 }}
-                className="space-y-10"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.65, ease: easeSmooth }}
+                className="w-full space-y-10"
               >
                 {(
                   [
@@ -828,11 +941,13 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
             {activeTab === "certificates" && (
               <motion.div
                 key="certificates-tab"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.65, ease: easeSmooth }}
+                className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
               >
                 {certificates.map((cert) => {
                   const colors = colorMap[cert.color] || colorMap.blue;
@@ -857,7 +972,7 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
                             src={thumbUrl}
                             alt={cert.title}
                             fill
-                            unoptimized
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-contain object-center transition-transform duration-500 group-hover/thumb:scale-105"
                           />
 
@@ -913,8 +1028,11 @@ export default function ProjectGrid({}: { showContent?: boolean }) {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-      </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
 
       {/* Modal viewer PDF sertifikat */}
       <AnimatePresence>

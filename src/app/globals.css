@@ -83,7 +83,7 @@
 /* Konsep: Pengaturan Scroll Native & Anti-Aliasing Teks */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+  scroll-padding-top: 0px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -171,3 +171,75 @@ code, kbd, samp, pre, .font-mono {
   transform: translate(2px, 2px);
   box-shadow: var(--card-shadow-hover);
 }
+
+/* Konsep: Pengurangan Animasi Ekstrem untuk Perangkat Hemat Daya & Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee, .animate-wave, .animate-move {
+    animation: none !important;
+  }
+}
+
+/* Konsep: View Transitions API - Efek Gelombang Lingkaran (Circular Ripple Reveal) Native Composited */
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: reveal-theme 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
+  z-index: 9999;
+  will-change: clip-path, -webkit-clip-path;
+  transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+  ::view-transition-new(root) {
+    animation-duration: 320ms;
+  }
+}
+
+@keyframes reveal-theme {
+  0% {
+    -webkit-clip-path: circle(0px at var(--ripple-x, 50%) var(--ripple-y, 50%));
+    clip-path: circle(0px at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  }
+  100% {
+    -webkit-clip-path: circle(var(--ripple-radius, 150vmax) at var(--ripple-x, 50%) var(--ripple-y, 50%));
+    clip-path: circle(var(--ripple-radius, 150vmax) at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  }
+}
+
+html[data-theme-transitioning] * {
+  pointer-events: none !important;
+}
+
+/* Konsep: Retensi Surface GPU & Fast Scrolling Instant Retention */
+main, section, .gdg-card {
+  contain: layout style;
+  content-visibility: visible;
+}
+
+/* Konsep: Sekali halaman ter-render (data-rendered="true"), seluruh seksi dan kartu terkunci 100% visible permanen */
+html[data-rendered="true"] main section,
+html[data-rendered="true"] .gdg-card {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+

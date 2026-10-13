@@ -3,16 +3,20 @@
 import { Code2, Mail } from "lucide-react";
 import Lanyard from "./Lanyard";
 
+interface HeroProps {
+  showContent?: boolean;
+  onNavigateSection?: (href: string) => void;
+}
+
 // Konsep: Komponen Hero (Seksi utama teratas website berisi perkenalan singkat, tombol navigasi cepat, dan kartu ID 3D Lanyard)
 export default function Hero({
   showContent = false,
-}: {
-  showContent?: boolean;
-}) {
+  onNavigateSection,
+}: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-10"
+      className="relative min-h-screen flex flex-col justify-center overflow-visible pt-20 pb-10"
     >
       {/* Konsep: Pola garis grid latar belakang dengan opacity transparan */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -26,10 +30,10 @@ export default function Hero({
         />
       </div>
 
-      {/* Container utama konten hero (Animasi fade-in berurutan) */}
+      {/* Container utama konten hero (Animasi workspace spawn ala desktop) */}
       <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full transition-opacity duration-500 ease-out-expo ${
-          showContent ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full transition-all duration-1000 ease-out-expo ${
+          showContent ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-[0.97] translate-y-6 pointer-events-none"
         }`}
       >
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -72,14 +76,26 @@ export default function Hero({
             >
               <a
                 href="#work"
-                className="group flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 bg-google-blue text-white border-2 border-black dark:border-zinc-700 rounded-lg font-bold uppercase tracking-wider shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] dark:hover:shadow-[2px_2px_0px_#000]"
+                onClick={(e) => {
+                  if (onNavigateSection) {
+                    e.preventDefault();
+                    onNavigateSection("#work");
+                  }
+                }}
+                className="group flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 bg-google-blue text-white border-2 border-black dark:border-zinc-700 rounded-lg font-bold uppercase tracking-wider shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] dark:hover:shadow-[2px_2px_0px_#000] cursor-pointer"
               >
                 <Code2 size={18} />
                 Explore Work
               </a>
               <a
                 href="#contact"
-                className="group flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 bg-white dark:bg-zinc-900 text-black dark:text-white border-2 border-black dark:border-zinc-700 rounded-lg font-bold uppercase tracking-wider shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] dark:hover:shadow-[2px_2px_0px_#000]"
+                onClick={(e) => {
+                  if (onNavigateSection) {
+                    e.preventDefault();
+                    onNavigateSection("#contact");
+                  }
+                }}
+                className="group flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 bg-white dark:bg-zinc-900 text-black dark:text-white border-2 border-black dark:border-zinc-700 rounded-lg font-bold uppercase tracking-wider shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] dark:hover:shadow-[2px_2px_0px_#000] cursor-pointer"
               >
                 <Mail size={18} />
                 Let&apos;s Connect
@@ -89,7 +105,7 @@ export default function Hero({
 
           {/* Konsep: Kolom Kanan (Simulasi kartu ID lanyard 3D interaktif) */}
           <div
-            className={`hidden sm:block w-full lg:w-1/3 shrink-0 transition-all duration-1000 ease-out-expo delay-250 ${
+            className={`hidden sm:block w-full lg:w-1/3 shrink-0 overflow-visible transition-all duration-1000 ease-out-expo delay-250 ${
               showContent
                 ? "opacity-100 translate-x-0 scale-100"
                 : "opacity-0 translate-x-12 scale-95"

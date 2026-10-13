@@ -29,12 +29,12 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
   };
 
   return (
-    <section id="contact" className="py-20 pb-32 md:pb-20">
+    <section id="contact" className="pt-20 pb-8 sm:pb-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div
-          className={`text-center md:text-left mb-12 transition-all duration-1000 ease-out-expo delay-900 ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
+          className={`text-center md:text-left mb-12 transition-all duration-300 ease-out-expo ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
             }`}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-yellow text-black text-xs font-bold uppercase tracking-wider mb-3 shadow-[2px_2px_0px_#000]">
@@ -50,9 +50,9 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Contact Form Card */}
+          {/* Contact Form Card (Focused Terminal / Modal Lift dari Bawah) */}
           <div
-            className={`gdg-card p-6 md:p-8 hover:border-google-blue transition-all duration-1000 ease-out-expo delay-1000 ${showContent ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-8 pointer-events-none"
+            className={`gdg-card p-6 md:p-8 hover:border-google-blue transition-all duration-700 ease-out-expo delay-150 ${showContent ? "opacity-100 scale-100 translate-y-0 shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.15)]" : "opacity-0 scale-[0.96] translate-y-8 pointer-events-none"
               }`}
           >
             <form className="space-y-4" onSubmit={onSubmit}>
@@ -124,9 +124,9 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
             </form>
           </div>
 
-          {/* Kolom Kanan: Media Sosial & Kartu Tim */}
+          {/* Kolom Kanan: Media Sosial & Kartu Tim (Float In dari Bawah Kanan) */}
           <div
-            className={`flex flex-col gap-6 transition-all duration-1000 ease-out-expo delay-1050 ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
+            className={`flex flex-col gap-6 transition-all duration-700 ease-out-expo delay-300 ${showContent ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 translate-x-6 translate-y-6 pointer-events-none"
               }`}
           >
             {/* Kartu Link Media Sosial */}
@@ -232,10 +232,10 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
 
         {/* Footer */}
         <div
-          className={`text-center mt-20 pt-8 border-t-2 border-black dark:border-white transition-all duration-1000 ease-out-expo delay-1100 ${showContent ? "opacity-100" : "opacity-0 pointer-events-none"
+          className={`text-center mt-12 sm:mt-16 pt-6 border-t-2 border-black dark:border-white transition-all duration-300 ease-out-expo ${showContent ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
         >
-          <div className="flex items-center justify-center gap-1.5 mb-4">
+          <div className="flex items-center justify-center gap-1.5 mb-3">
             <div className="w-2.5 h-2.5 rounded-full bg-google-blue border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
             <div className="w-2.5 h-2.5 rounded-full bg-google-red border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
             <div className="w-2.5 h-2.5 rounded-full bg-google-yellow border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
@@ -243,7 +243,6 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
           </div>
           <p className="text-xs text-black dark:text-white font-bold">
             © {new Date().getFullYear()} Rayhan Arie Fahreza.
-
           </p>
         </div>
       </div>

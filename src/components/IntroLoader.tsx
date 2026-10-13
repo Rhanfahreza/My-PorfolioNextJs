@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 interface IntroLoaderProps {
   onFinished: () => void;
 }
 
 export default function IntroLoader({ onFinished }: IntroLoaderProps) {
+  const { isLowEnd, reducedMotion } = useDevicePerformance();
   const [isVisible, setIsVisible] = useState(true);
   const [isColorActive, setIsColorActive] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -19,7 +21,25 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
   const word3 = "FAHREZA".split("");
 
   useEffect(() => {
+    // Khusus desktop (lebar layar >= 768px), lewati loading screen seketika
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      setIsVisible(false);
+      onFinished();
+      return;
+    }
+
+    // Jika prefers-reduced-motion aktif, selesaikan loader secepat mungkin
+    if (reducedMotion) {
+      setProgress(100);
+      return;
+    }
+
     let targetProgress = 10;
+
+    // Safety timeout: di HP kentang atau jaringan lambat, maksimal 1.8 detik harus tembus 100%
+    const maxWaitTimeout = setTimeout(() => {
+      targetProgress = 100;
+    }, isLowEnd ? 1200 : 2000);
 
     // Sensor 1: DOM & Document Ready State Detection
     const checkDomReady = () => {
@@ -95,9 +115,10 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
 
     return () => {
       clearInterval(interval);
+      clearTimeout(maxWaitTimeout);
       window.removeEventListener("load", handleWindowLoad);
     };
-  }, []);
+  }, [isLowEnd, reducedMotion]);
 
   // Completion Phase after Progress reaches 100%
   useEffect(() => {
@@ -154,7 +175,7 @@ export default function IntroLoader({ onFinished }: IntroLoaderProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#F8F9FA] dark:bg-[#0f1013] text-[#202124] dark:text-[#e8eaed] transition-all duration-600 ease-out-expo ${
+      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#F8F9FA] dark:bg-[#0f1013] text-[#202124] dark:text-[#e8eaed] transition-all duration-600 ease-out-expo md:hidden ${
         isFadingOut ? "opacity-0 pointer-events-none scale-102" : "opacity-100"
       }`}
     >

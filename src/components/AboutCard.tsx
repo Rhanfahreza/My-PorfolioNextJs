@@ -1,157 +1,328 @@
 "use client";
 
 import Image from "next/image";
-import { Compass } from "lucide-react";
+import { Compass, Shield, Server, Terminal } from "lucide-react";
 
 export default function AboutCard({ showContent = false }: { showContent?: boolean }) {
   return (
-    <section id="about" className="py-20 relative">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="min-h-screen flex flex-col justify-center py-16 lg:py-6 relative font-sans">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 
         {/* Section Header */}
         <div
-          className={`text-center md:text-left mb-12 transition-all duration-1000 ease-out-expo delay-400 ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
-            }`}
+          className={`text-center md:text-left mb-3.5 sm:mb-4 lg:mb-4 transition-all duration-300 ease-out-expo ${
+            showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-red text-white text-xs font-bold uppercase tracking-wider mb-3 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-red text-white text-xs font-bold uppercase tracking-wider mb-1.5 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000]">
             About Me
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white uppercase tracking-tight">
             Profile
           </h2>
-          <div className="w-40 h-2 bg-google-red border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-2 mx-auto md:mx-0"></div>
+          <div className="w-16 h-1.5 bg-google-red border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-1.5 mx-auto md:mx-0" />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
+        {/* ======================================================== */}
+        {/* TAMPILAN MOBILE & TABLET (< lg): Format Bertumpuk Lama   */}
+        {/* ======================================================== */}
+        <div className="lg:hidden flex flex-col gap-6">
 
-          {/* Kartu Profil & Foto (Sticky Card) */}
+          {/* Card 1: Profil & Identitas (Format Lama) */}
           <div
-            className={`w-full lg:w-[320px] xl:w-87.5 shrink-0 lg:sticky lg:top-28 transition-all duration-700 ease-out-expo delay-450 ${showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-              }`}
+            className={`gdg-card p-5 sm:p-6 flex flex-col gap-5 hover:border-google-blue transition-all duration-300 ease-out-expo ${
+              showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+            }`}
           >
-            <div className="gdg-card overflow-hidden hover:border-google-blue flex flex-col gap-6 p-6">
-              {/* Foto profil */}
-              <div className="relative w-full aspect-4/5 rounded-lg border-2 border-black dark:border-zinc-700 overflow-hidden group shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000]">
+            {/* Foto Profil Vertikal Proporsional */}
+            <div className="relative w-full aspect-[4/5] rounded-lg border-2 border-black dark:border-zinc-700 overflow-hidden group shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#000]">
+              <Image
+                src="/Foto-Profil-Github.jpeg"
+                alt="Rayhan Arie Fahreza"
+                fill
+                className="grayscale group-hover:grayscale-0 transition-all duration-500 object-cover object-[center_35%]"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-500" />
+            </div>
+
+            {/* Info Singkat */}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-start">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded border border-black dark:border-zinc-700 bg-google-blue text-white text-[10px] font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_#000]">
+                  Software Engineering
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                  Rayhan Arie Fahreza
+                </h3>
+                <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold mt-0.5">
+                  SMK Plus Pelita Nusantara Bogor
+                </p>
+                <p className="text-[11px] font-semibold text-google-blue dark:text-google-blue mt-1">
+                  Web Development • Go Backend Architecture
+                </p>
+              </div>
+
+              {/* Quick Info Grid di Mobile */}
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                <div className="p-2.5 rounded border border-black/15 dark:border-white/10 bg-zinc-50 dark:bg-zinc-800/60">
+                  <span className="block text-[10px] uppercase text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">Backend</span>
+                  <span className="block text-xs font-bold text-zinc-900 dark:text-white mt-0.5">Go (Golang)</span>
+                </div>
+                <div className="p-2.5 rounded border border-black/15 dark:border-white/10 bg-zinc-50 dark:bg-zinc-800/60">
+                  <span className="block text-[10px] uppercase text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">Primary OS</span>
+                  <span className="block text-xs font-bold text-zinc-900 dark:text-white mt-0.5">Arch Linux</span>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t-2 border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                <span className="inline-flex items-center gap-1.5 font-semibold">
+                  <Compass className="text-google-red" size={14} /> Bogor, Indonesia
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded border border-black dark:border-zinc-700 bg-google-green text-white text-[10px] font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_#000]">
+                  Student
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: About Me Narasi (Format Lama) */}
+          <div
+            className={`gdg-card p-5 sm:p-6 hover:border-google-yellow transition-all duration-300 ease-out-expo ${
+              showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+            }`}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-google-yellow border border-black shadow-[1px_1px_0px_#000]" />
+              <h3 className="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight">
+                About Me
+              </h3>
+            </div>
+            <div className="space-y-3 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed text-left font-normal">
+              <p>
+                Focused on building modern web applications with security integrated from the ground up. I work across clean frontend interfaces, scalable Go backend architectures, and Linux-native environments.
+              </p>
+              <p>
+                Beyond writing code, I actively explore web application vulnerabilities, participate in CTF challenges, and build tools designed for performance and reliability.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3: 3 Pilar Keahlian Bertumpuk (Mobile) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Backend */}
+            <div
+              className={`gdg-card p-4.5 hover:border-google-blue flex flex-col justify-between transition-all duration-300 ease-out-expo ${
+                showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              <div>
+                <div className="w-9 h-9 rounded border-2 border-black dark:border-zinc-700 bg-google-blue text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-3 shrink-0">
+                  <Server size={17} />
+                </div>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Backend
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-xs leading-relaxed font-normal">
+                  Fast &amp; scalable systems with clean Go (Golang) backend architectures.
+                </p>
+              </div>
+            </div>
+
+            {/* Cybersecurity */}
+            <div
+              className={`gdg-card p-4.5 hover:border-google-red flex flex-col justify-between transition-all duration-300 ease-out-expo ${
+                showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              <div>
+                <div className="w-9 h-9 rounded border-2 border-black dark:border-zinc-700 bg-google-red text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-3 shrink-0">
+                  <Shield size={17} />
+                </div>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Cybersecurity
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-xs leading-relaxed font-normal">
+                  Web vulnerability audits, XSS auditing, and active CTF challenges.
+                </p>
+              </div>
+            </div>
+
+            {/* Linux */}
+            <div
+              className={`gdg-card p-4.5 hover:border-google-green flex flex-col justify-between transition-all duration-300 ease-out-expo ${
+                showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              <div>
+                <div className="w-9 h-9 rounded border-2 border-black dark:border-zinc-700 bg-google-green text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-3 shrink-0">
+                  <Terminal size={17} />
+                </div>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Linux Systems
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-xs leading-relaxed font-normal">
+                  Hyprland on Arch Linux, security testing on Kali &amp; Athena OS.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* TAMPILAN DESKTOP (lg:): Opsi B (Muat 1 Slide di Layar)    */}
+        {/* ======================================================== */}
+        <div className="hidden lg:block space-y-3.5">
+
+          {/* Tier 1: Wide Editorial Hero Card (Tiling Window Slide dari Kiri) */}
+          <div
+            className={`gdg-card p-4.5 lg:p-5 hover:border-google-blue transition-all duration-700 ease-out-expo delay-150 ${
+              showContent ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-8 scale-[0.98] pointer-events-none"
+            }`}
+          >
+            <div className="flex flex-row items-stretch gap-6 lg:gap-7">
+              
+              {/* Foto Profil Vertikal Proporsional */}
+              <div className="relative w-40 lg:w-44 aspect-[3/4] shrink-0 rounded-lg border-2 border-black dark:border-zinc-700 overflow-hidden group shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#000]">
                 <Image
                   src="/Foto-Profil-Github.jpeg"
                   alt="Rayhan Arie Fahreza"
                   fill
-                  priority
-                  className="grayscale group-hover:grayscale-0 transition-all duration-500 object-cover"
+                  className="grayscale group-hover:grayscale-0 transition-all duration-500 object-cover object-[center_35%]"
                   unoptimized
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-500" />
               </div>
 
-              {/* Info singkat */}
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-start">
-                  <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-wider rounded border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000]">
-                    Software Engineering
-                  </span>
-                </div>
-
+              {/* Identitas, Narasi Lengkap & Quick Facts */}
+              <div className="flex flex-col justify-between w-full text-left">
                 <div>
-                  <h3 className="text-lg font-black text-zinc-900 dark:text-white uppercase">
+                  {/* Baris Atas: Badge Jurusan & Sekolah */}
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded border border-black dark:border-zinc-700 bg-google-blue text-white text-[10px] font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_#000]">
+                      Software Engineering
+                    </span>
+                    <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                      SMK Plus Pelita Nusantara Bogor
+                    </span>
+                  </div>
+
+                  {/* Nama Lengkap & Subtitle Keahlian yang Harmonis */}
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
                     Rayhan Arie Fahreza
                   </h3>
-                  <p className="text-zinc-500 dark:text-zinc-400 text-xs font-bold mt-0.5">
-                    SMK Plus Pelita Nusantara Bogor
+                  <p className="text-xs font-semibold text-google-blue dark:text-google-blue mb-2.5">
+                    Web Development • Go Backend Architecture
                   </p>
+
+                  {/* Paragraf Narasi Bio Lengkap (Left-aligned & Natural Line Height) */}
+                  <div className="space-y-1.5 text-zinc-600 dark:text-zinc-300 text-xs sm:text-[13px] leading-relaxed text-left font-normal">
+                    <p>
+                      Focused on building modern web applications with security integrated from the ground up. I work across clean frontend interfaces, scalable Go backend architectures, and Linux-native environments.
+                    </p>
+                    <p>
+                      Beyond writing code, I actively explore web application vulnerabilities, participate in CTF challenges, and build tools designed for performance and reliability.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                  <span className="inline-flex items-center gap-2 text-xs font-bold text-zinc-800 dark:text-zinc-200">
-                    <Compass className="text-google-red" size={14} /> Bogor, Indonesia
+                {/* 3 Box Spesifikasi / Quick Focus Grid (Presisi 3 Kolom) */}
+                <div className="grid grid-cols-3 gap-2.5 pt-2 my-1">
+                  <div className="p-2 rounded border border-black/15 dark:border-white/10 bg-zinc-50 dark:bg-zinc-800/60 shadow-[1px_1px_0px_#000] dark:shadow-none">
+                    <span className="block text-[10px] uppercase text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">Track</span>
+                    <span className="block text-xs font-extrabold text-zinc-900 dark:text-white mt-0.5 truncate">Software Eng.</span>
+                  </div>
+                  <div className="p-2 rounded border border-black/15 dark:border-white/10 bg-zinc-50 dark:bg-zinc-800/60 shadow-[1px_1px_0px_#000] dark:shadow-none">
+                    <span className="block text-[10px] uppercase text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">Backend</span>
+                    <span className="block text-xs font-extrabold text-zinc-900 dark:text-white mt-0.5 truncate">Go (Golang)</span>
+                  </div>
+                  <div className="p-2 rounded border border-black/15 dark:border-white/10 bg-zinc-50 dark:bg-zinc-800/60 shadow-[1px_1px_0px_#000] dark:shadow-none">
+                    <span className="block text-[10px] uppercase text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">Daily OS</span>
+                    <span className="block text-xs font-extrabold text-zinc-900 dark:text-white mt-0.5 truncate">Arch Linux</span>
+                  </div>
+                </div>
+
+                {/* Footer Sub-Info (Student di Ujung Kanan menggantikan ackteams) */}
+                <div className="pt-2 mt-1.5 border-t-2 border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs">
+                  <span className="inline-flex items-center gap-1.5 font-semibold text-zinc-600 dark:text-zinc-400">
+                    <Compass className="text-google-red" size={13} /> Bogor, West Java, Indonesia
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded border border-black dark:border-zinc-700 bg-google-green text-white text-[10px] font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_#000]">
+                    Student
                   </span>
                 </div>
               </div>
+
             </div>
           </div>
 
-          {/* Kolom narasi / deskripsi profil */}
-          <div className="flex-1 w-full flex flex-col gap-6">
+          {/* Tier 2: 3 Pilar Keahlian Berdampingan (Desktop) */}
+          <div className="grid grid-cols-3 gap-3.5 lg:gap-4">
 
-            {/* Perkenalan Diri */}
+            {/* Pilar 1: Backend Development */}
             <div
-              className={`gdg-card p-6 md:p-8 hover:border-google-yellow transition-all duration-700 ease-out-expo delay-500 ${showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-                }`}
+              className={`gdg-card p-3.5 sm:p-4 hover:border-google-blue flex flex-col justify-between transition-all duration-700 ease-out-expo delay-250 ${
+                showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95 pointer-events-none"
+              }`}
             >
-              <h3 className="text-xl font-black text-zinc-900 dark:text-white uppercase mb-4 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-google-yellow border border-black" />
-                About Me
-              </h3>
-              <p className="text-zinc-800 dark:text-zinc-200 text-sm leading-relaxed text-justify font-medium">
-                Focused on building modern web applications with security integrated from the ground up. I work across frontend design, secure backend architecture, Linux environments, and hands-on security audits.              </p>
+              <div>
+                <div className="w-8 h-8 rounded border-2 border-black dark:border-zinc-700 bg-google-blue text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-2 shrink-0">
+                  <Server size={16} />
+                </div>
+                <h4 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Backend
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-[11px] sm:text-xs leading-relaxed font-normal">
+                  Fast &amp; scalable systems with clean Go (Golang) backend architectures.
+                </p>
+              </div>
             </div>
 
-            {/* Grid backend & UI/UX */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-              {/* Backend Development */}
-              <div
-                className={`gdg-card p-6 hover:border-google-blue transition-all duration-700 ease-out-expo delay-550 ${showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-                  }`}
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="w-10 h-10 rounded border-2 border-black dark:border-zinc-700 bg-google-blue text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] shrink-0">
-                    <span>⚙️</span>
-                  </div>
-                  <div>
-                    <h3 className="text-base font-black text-zinc-900 dark:text-white mb-2 uppercase">
-                      Backend
-                    </h3>
-                    <p className="text-zinc-800 dark:text-zinc-200 text-xs leading-relaxed text-justify font-medium">
-                      I focus on building fast, scalable, and reliable backend systems. I write clean code and rely on Go (Golang) to deliver lightweight, high-efficiency architectures.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* UI/UX Design */}
-              <div
-                className={`gdg-card p-6 hover:border-google-yellow transition-all duration-700 ease-out-expo delay-550 ${showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-                  }`}
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="w-10 h-10 rounded border-2 border-black dark:border-zinc-700 bg-google-yellow text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] shrink-0">
-                    <span>🎨</span>
-                  </div>
-                  <div>
-                    <h3 className="text-base font-black text-zinc-900 dark:text-white mb-2 uppercase">
-                      UI/UX
-                    </h3>
-                    <p className="text-zinc-800 dark:text-zinc-200 text-xs leading-relaxed text-justify font-medium">
-                      I start every project in Figma to map out the user experience before writing code. This keeps my workflow centered on building clean wireframes, interactive prototypes, and functional interfaces.                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Linux & Cybersecurity */}
+            {/* Pilar 2: Cybersecurity */}
             <div
-              className={`gdg-card p-6 md:p-8 hover:border-google-green transition-all duration-700 ease-out-expo delay-600 ${showContent ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-                }`}
+              className={`gdg-card p-3.5 sm:p-4 hover:border-google-red flex flex-col justify-between transition-all duration-700 ease-out-expo delay-350 ${
+                showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95 pointer-events-none"
+              }`}
             >
-              <div className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded border-2 border-black dark:border-zinc-700 bg-google-green text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] shrink-0">
-                  <span className="text-xl select-none">🐧</span>
+              <div>
+                <div className="w-8 h-8 rounded border-2 border-black dark:border-zinc-700 bg-google-red text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-2 shrink-0">
+                  <Shield size={16} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-black text-zinc-900 dark:text-white mb-2 uppercase">
-                    Linux
-                  </h3>
-                  <p className="text-zinc-800 dark:text-zinc-200 text-sm leading-relaxed text-justify font-medium">
-                    Linux-native workflow centered on system customization and security testing. Experienced in ricing Hyprland on Arch Linux, as well as web application auditing, XSS vulnerability testing, and network analysis on Kali and Athena OS</p>
-                </div>
+                <h4 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Cybersecurity
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-[11px] sm:text-xs leading-relaxed font-normal">
+                  Web vulnerability audits, XSS auditing, and active CTF challenges.
+                </p>
               </div>
             </div>
 
-
+            {/* Pilar 3: Linux Systems */}
+            <div
+              className={`gdg-card p-3.5 sm:p-4 hover:border-google-green flex flex-col justify-between transition-all duration-700 ease-out-expo delay-450 ${
+                showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95 pointer-events-none"
+              }`}
+            >
+              <div>
+                <div className="w-8 h-8 rounded border-2 border-black dark:border-zinc-700 bg-google-green text-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] mb-2 shrink-0">
+                  <Terminal size={16} />
+                </div>
+                <h4 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase mb-1 tracking-tight">
+                  Linux Systems
+                </h4>
+                <p className="text-zinc-600 dark:text-zinc-300 text-[11px] sm:text-xs leading-relaxed font-normal">
+                  Hyprland on Arch Linux, security testing on Kali &amp; Athena OS.
+                </p>
+              </div>
+            </div>
 
           </div>
 
         </div>
+
       </div>
     </section>
   );
