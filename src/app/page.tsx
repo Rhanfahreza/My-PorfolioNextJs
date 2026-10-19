@@ -112,11 +112,11 @@ export default function Home() {
       type = "split-inward";
     }
 
-    // Delay transisi responsif 0.4 detik (400ms) agar ada feedback visual seketika tanpa jeda lama
+    // Respon seketika (50ms) agar transisi kinetic shutter langsung aktif tanpa lag
     pendingTimerRef.current = setTimeout(() => {
       setPendingTarget(null);
       setTransitionPayload({ type, fromHref: currentHref, targetHref });
-    }, 400);
+    }, 50);
   };
 
   return (

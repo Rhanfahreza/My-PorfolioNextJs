@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send, ArrowUpRight, Shield } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 export default function ContactForm({ showContent = false }: { showContent?: boolean }) {
   const [result, setResult] = useState("");
@@ -32,29 +33,26 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
     <section id="contact" className="pt-20 pb-8 sm:pb-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section Header */}
-        <div
-          className={`text-center md:text-left mb-12 transition-all duration-300 ease-out-expo ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-            }`}
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-yellow text-black text-xs font-bold uppercase tracking-wider mb-3 shadow-[2px_2px_0px_#000]">
-            Contact
+        {/* Section Header with Scroll-Trigger */}
+        <ScrollReveal direction="up" delay={0.05}>
+          <div className="text-center md:text-left mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border-2 border-black dark:border-zinc-700 bg-google-yellow text-black text-xs font-bold uppercase tracking-wider mb-3 shadow-[2px_2px_0px_#000]">
+              Contact
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight">
+              Let&apos;s Connect
+            </h2>
+            <div className="w-16 h-2 bg-google-yellow border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-2 mx-auto md:mx-0"></div>
+            <p className="text-zinc-800 dark:text-zinc-300 font-semibold max-w-lg mt-3">
+              Have a project in mind or just want to say hi? I&apos;d love to hear from you.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white uppercase tracking-tight">
-            Let&apos;s Connect
-          </h2>
-          <div className="w-16 h-2 bg-google-yellow border-2 border-black dark:border-zinc-700 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#000] rounded-sm mt-2 mx-auto md:mx-0"></div>
-          <p className="text-zinc-800 dark:text-zinc-300 font-semibold max-w-lg mt-3">
-            Have a project in mind or just want to say hi? I&apos;d love to hear from you.
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Contact Form Card (Focused Terminal / Modal Lift dari Bawah) */}
-          <div
-            className={`gdg-card p-6 md:p-8 hover:border-google-blue transition-all duration-700 ease-out-expo delay-150 ${showContent ? "opacity-100 scale-100 translate-y-0 shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.15)]" : "opacity-0 scale-[0.96] translate-y-8 pointer-events-none"
-              }`}
-          >
+          {/* Contact Form Card (Scroll-Triggered) */}
+          <ScrollReveal direction="up" delay={0.15}>
+            <div className="gdg-card p-6 md:p-8 hover:border-google-blue shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.15)] transition-colors">
             <form className="space-y-4" onSubmit={onSubmit}>
               <div>
                 <label
@@ -122,15 +120,14 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
                 </div>
               )}
             </form>
-          </div>
+            </div>
+          </ScrollReveal>
 
-          {/* Kolom Kanan: Media Sosial & Kartu Tim (Float In dari Bawah Kanan) */}
-          <div
-            className={`flex flex-col gap-6 transition-all duration-700 ease-out-expo delay-300 ${showContent ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 translate-x-6 translate-y-6 pointer-events-none"
-              }`}
-          >
-            {/* Kartu Link Media Sosial */}
-            <div className="gdg-card p-6 md:p-8 hover:border-google-yellow">
+          {/* Kolom Kanan: Media Sosial & Kartu Tim (Scroll-Triggered) */}
+          <ScrollReveal direction="up" delay={0.25}>
+            <div className="flex flex-col gap-6">
+              {/* Kartu Link Media Sosial */}
+              <div className="gdg-card p-6 md:p-8 hover:border-google-yellow">
               <h3 className="text-xs font-black uppercase tracking-wider text-black dark:text-white mb-5">
                 Find me on
               </h3>
@@ -227,24 +224,24 @@ export default function ContactForm({ showContent = false }: { showContent?: boo
                 </span>
               </div>
             </div>
-          </div>
+            </div>
+          </ScrollReveal>
         </div>
 
         {/* Footer */}
-        <div
-          className={`text-center mt-12 sm:mt-16 pt-6 border-t-2 border-black dark:border-white transition-all duration-300 ease-out-expo ${showContent ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-        >
-          <div className="flex items-center justify-center gap-1.5 mb-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-google-blue border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
-            <div className="w-2.5 h-2.5 rounded-full bg-google-red border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
-            <div className="w-2.5 h-2.5 rounded-full bg-google-yellow border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
-            <div className="w-2.5 h-2.5 rounded-full bg-google-green border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
+        <ScrollReveal direction="up" delay={0.1}>
+          <div className="text-center mt-12 sm:mt-16 pt-6 border-t-2 border-black dark:border-white">
+            <div className="flex items-center justify-center gap-1.5 mb-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-google-blue border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-google-red border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-google-yellow border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-google-green border border-black dark:border-white shadow-[1px_1px_0px_#000]" />
+            </div>
+            <p className="text-xs text-black dark:text-white font-bold">
+              © {new Date().getFullYear()} Rayhan Arie Fahreza.
+            </p>
           </div>
-          <p className="text-xs text-black dark:text-white font-bold">
-            © {new Date().getFullYear()} Rayhan Arie Fahreza.
-          </p>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

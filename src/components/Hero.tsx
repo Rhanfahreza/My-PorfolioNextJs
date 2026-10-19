@@ -105,10 +105,10 @@ export default function Hero({
 
           {/* Konsep: Kolom Kanan (Simulasi kartu ID lanyard 3D interaktif) */}
           <div
-            className={`hidden sm:block w-full lg:w-1/3 shrink-0 overflow-visible transition-all duration-1000 ease-out-expo delay-250 ${
+            className={`flex justify-center w-full lg:w-1/3 shrink-0 overflow-visible transition-all duration-1000 ease-out-expo delay-250 scale-90 sm:scale-100 ${
               showContent
-                ? "opacity-100 translate-x-0 scale-100"
-                : "opacity-0 translate-x-12 scale-95"
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-12"
             }`}
           >
             <Lanyard />

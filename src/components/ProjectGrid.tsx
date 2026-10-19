@@ -16,7 +16,8 @@ import {
   RefreshCw,
   LayoutGrid,
 } from "lucide-react";
-import ExperienceMenu, { ExperienceTab } from "./ExperienceMenu";
+import ExperienceMenu from "./ExperienceMenu";
+import ScrollReveal from "./ScrollReveal";
 
 // Data structure & tipe properti project
 interface Project {
@@ -520,13 +521,11 @@ export default function ProjectGrid({
   const [prevTab, setPrevTab] = useState<TabType>(activeTab);
   const [direction, setDirection] = useState<number>(1);
 
-  useEffect(() => {
-    if (activeTab !== prevTab) {
-      const dir = TAB_INDEX[activeTab] >= TAB_INDEX[prevTab] ? 1 : -1;
-      setDirection(dir);
-      setPrevTab(activeTab);
-    }
-  }, [activeTab, prevTab]);
+  if (activeTab !== prevTab) {
+    const dir = TAB_INDEX[activeTab] >= TAB_INDEX[prevTab] ? 1 : -1;
+    setDirection(dir);
+    setPrevTab(activeTab);
+  }
 
   const easeSmooth = [0.16, 1, 0.3, 1] as const;
 
@@ -585,7 +584,8 @@ export default function ProjectGrid({
   return (
     <section id="work" className="py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatePresence mode="wait">
+        <ScrollReveal direction="up" delay={0.05}>
+          <AnimatePresence mode="wait">
           {viewMode === "menu" ? (
             <ExperienceMenu
               key="experience-menu-view"
@@ -1032,6 +1032,7 @@ export default function ProjectGrid({
           </motion.div>
         )}
       </AnimatePresence>
+        </ScrollReveal>
     </div>
 
       {/* Modal viewer PDF sertifikat */}
