@@ -2,7 +2,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-
 :root {
   --background: #F8F9FA;
   --foreground: #202124;
@@ -40,7 +39,6 @@
   --accent-box-bg: #1c1f26;
 }
 
-/* Konsep: Pendaftaran Tema Warna Google Brand & Tipografi pada Tailwind v4 */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -58,14 +56,13 @@
   --color-google-red: #EA4335;
   --color-google-yellow: #FBBC05;
   --color-google-green: #34A853;
-  --font-sans: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-heading: var(--font-space-grotesk), var(--font-plus-jakarta), sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
-  --font-poppins: var(--font-poppins), sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Konsep: Scrollbar Kustom Bergaya Minimalis */
+/* Scrollbar Kustom */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -80,7 +77,6 @@
   background: #bdc1c6;
 }
 
-/* Konsep: Pengaturan Scroll Native & Anti-Aliasing Teks */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 0px;
@@ -90,11 +86,12 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.011em;
 }
 
-/* Konsep: Akselerasi GPU Hardware untuk Rendering Animasi Smooth 60FPS di HP */
+/* Akselerasi GPU Hardware */
 .gdg-card, nav, section, [data-framer-name] {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -102,49 +99,17 @@ body {
   -webkit-transform: translateZ(0);
 }
 
-/* Force Font Heading (Space Grotesk) pada semua Judul */
+/* Professional Heading & Typography Rules */
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: var(--font-space-grotesk), var(--font-plus-jakarta), sans-serif !important;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: -0.025em;
 }
 
-/* Force Font Code (JetBrains Mono) pada Blok Kode */
 code, kbd, samp, pre, .font-mono {
   font-family: var(--font-jetbrains-mono), monospace !important;
 }
 
-/* Konsep: Animasi Lambaian Tangan (Wave Emoji) */
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.animate-wave {
-  display: inline-block;
-  animation: wave 2.5s infinite;
-  transform-origin: 70% 70%;
-}
-
-/* Konsep: Animasi Berjalan Bolak-Balik (Running Character) */
-@keyframes move {
-  0% { transform: translateX(0) scaleX(1); }
-  45% { transform: translateX(20px) scaleX(1); }
-  50% { transform: translateX(20px) scaleX(-1); }
-  95% { transform: translateX(0) scaleX(-1); }
-  100% { transform: translateX(0) scaleX(1); }
-}
-
-.animate-move {
-  display: inline-block;
-  animation: move 3s ease-in-out infinite;
-}
-
-/* Konsep: Animasi Teks Marquee Berjalan Tanpa Henti */
+/* Animasi Marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -158,7 +123,7 @@ code, kbd, samp, pre, .font-mono {
   animation-play-state: paused;
 }
 
-/* Konsep: Kartu Bergaya Neo-Brutalisme (Tepi Tebal + Bayangan Tegas) */
+/* Kartu Bergaya Neo-Brutalisme */
 .gdg-card {
   background-color: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border);
@@ -172,7 +137,7 @@ code, kbd, samp, pre, .font-mono {
   box-shadow: var(--card-shadow-hover);
 }
 
-/* Konsep: Pengurangan Animasi Ekstrem untuk Perangkat Hemat Daya & Aksesibilitas */
+/* Pengurangan Animasi untuk prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
@@ -180,12 +145,12 @@ code, kbd, samp, pre, .font-mono {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-marquee, .animate-wave, .animate-move {
+  .animate-marquee {
     animation: none !important;
   }
 }
 
-/* Konsep: View Transitions API - Efek Gelombang Lingkaran (Circular Ripple Reveal) Native Composited */
+/* View Transitions API */
 ::view-transition-group(root) {
   animation: none;
 }
@@ -229,17 +194,7 @@ html[data-theme-transitioning] * {
   pointer-events: none !important;
 }
 
-/* Konsep: Retensi Surface GPU & Fast Scrolling Instant Retention */
 main, section, .gdg-card {
   contain: layout style;
   content-visibility: visible;
 }
-
-/* Konsep: Sekali halaman ter-render (data-rendered="true"), seluruh seksi dan kartu terkunci 100% visible permanen */
-html[data-rendered="true"] main section,
-html[data-rendered="true"] .gdg-card {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-

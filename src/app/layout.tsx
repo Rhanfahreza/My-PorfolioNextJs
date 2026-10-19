@@ -1,23 +1,14 @@
 import type { Metadata } from "next";
 import {
-  Plus_Jakarta_Sans,
-  Space_Grotesk,
+  Inter,
   JetBrains_Mono,
-  Poppins,
 } from "next/font/google";
 import "./globals.css";
 import GdgBackground from "@/components/GdgBackground";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
-// Konsep: Inisialisasi tipografi modern via Google Fonts (next/font/google) untuk performa cepat tanpa layout shift (CLS)
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -28,28 +19,102 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
+const SITE_URL = "https://rayhan.ackteams.com";
 
-// Konsep: Metadata SEO & OpenGraph untuk mengoptimalkan pencarian di Google dan pratinjau link media sosial
 export const metadata: Metadata = {
-  title: "Rayhan Arie Fahreza | My Personal Website",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Rayhan Arie Fahreza — Web Developer, Go & Cybersecurity",
+    template: "%s | Rayhan Arie Fahreza",
+  },
   description:
-    "Portfolio of Rayhan Arie Fahreza — Major Software Engineer and Cybersecurity .",
+    "Portfolio of Rayhan Arie Fahreza: Software Engineering student specializing in Next.js, Go (Golang) backend architecture, web security auditing, and Linux.",
   keywords: [
     "Rayhan Arie Fahreza",
-    "Software Engineer",
-    "Cybersecurity",
-    "Portfolio",
+    "Software Engineer Bogor",
+    "Go Backend Developer",
+    "Next.js Developer Indonesia",
+    "Web Security Researcher",
+    "CTF Player Indonesia",
+    "Acknowledge Teams",
+    "ACK Teams",
+    "SMK Plus Pelita Nusantara",
+  ],
+  authors: [{ name: "Rayhan Arie Fahreza", url: SITE_URL }],
+  creator: "Rayhan Arie Fahreza",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    alternateLocale: ["id_ID"],
+    url: SITE_URL,
+    siteName: "Rayhan Arie Fahreza Portfolio",
+    title: "Rayhan Arie Fahreza — Web Developer, Go & Cybersecurity",
+    description:
+      "Building fast, resilient web applications with Next.js & Go—hardened through offensive security testing and CTF research.",
+    images: [
+      {
+        url: "/Foto-Profil-Github.jpeg",
+        width: 800,
+        height: 800,
+        alt: "Rayhan Arie Fahreza — Software Engineering & Cybersecurity",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rayhan Arie Fahreza — Web Developer, Go & Cybersecurity",
+    description:
+      "Software Engineering student focused on Next.js, Go backend systems, XSS auditing, and Arch Linux.",
+    images: ["/Foto-Profil-Github.jpeg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Rayhan Arie Fahreza",
+  url: SITE_URL,
+  image: `${SITE_URL}/Foto-Profil-Github.jpeg`,
+  jobTitle: "Software Developer & Cybersecurity Enthusiast",
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "SMK Plus Pelita Nusantara Bogor",
+  },
+  memberOf: {
+    "@type": "Organization",
+    name: "Acknowledge Teams (ACK Teams)",
+    url: "https://www.ackteams.com/",
+  },
+  knowsAbout: [
     "Next.js",
+    "TypeScript",
+    "Go (Golang)",
+    "Web Application Security",
+    "Cross-Site Scripting (XSS) Auditing",
+    "Capture The Flag (CTF)",
+    "Arch Linux",
+  ],
+  sameAs: [
+    "https://github.com/Rhanfahreza",
+    "https://www.linkedin.com/in/rayhan-arie-fahreza-6408a138a/",
+    "https://www.instagram.com/rayhanarfhrz/",
   ],
 };
 
-// Konsep: Root Layout (Pembungkus utama seluruh halaman website berisi konfigurasi HTML, font, tema, dan patching Google Translate)
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,90 +123,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${poppins.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
-        {/* Script khusus untuk mencegah error DOM React saat fitur Google Translate diaktifkan oleh pengunjung */}
         <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof window !== 'undefined') {
-                // Patch DOM Node.prototype.insertBefore dan removeChild agar React tidak crash saat Google Translate menerjemahkan halaman
-                const originalInsertBefore = Node.prototype.insertBefore;
-                Node.prototype.insertBefore = function (newNode, referenceNode) {
-                  if (referenceNode && referenceNode.parentNode !== this) {
-                    if (console && console.warn) {
-                      console.warn('Google Translate DOM mismatch detected during insertBefore, falling back gracefully.');
-                    }
-                    return this.appendChild(newNode);
-                  }
-                  return originalInsertBefore.call(this, newNode, referenceNode);
-                };
-
-                const originalRemoveChild = Node.prototype.removeChild;
-                Node.prototype.removeChild = function (child) {
-                  if (child && child.parentNode !== this) {
-                    if (console && console.warn) {
-                      console.warn('Google Translate DOM mismatch detected during removeChild, falling back gracefully.');
-                    }
-                    if (child.parentNode) {
-                      return child.parentNode.removeChild(child);
-                    }
-                    return child;
-                  }
-                  return originalRemoveChild.call(this, child);
-                };
-
-                // Observer otomatis untuk mengoreksi hasil terjemahan kaku dari Google Translate
-                const fixTranslationDictionary = () => {
-                  const replacements = [
-                    { wrong: /^Rumah$/i, correct: "Beranda" },
-                    { wrong: /^Pekerjaan Saya$/i, correct: "Portofolio" },
-                    { wrong: /^Jelajahi Pekerjaan$/i, correct: "Lihat Portofolio" },
-                  ];
-
-                  const walkNodes = (node) => {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                      const trimmed = node.nodeValue ? node.nodeValue.trim() : "";
-                      for (const item of replacements) {
-                        if (item.wrong.test(trimmed)) {
-                          node.nodeValue = node.nodeValue.replace(item.wrong, item.correct);
-                        }
-                      }
-                    } else if (node.nodeType === Node.ELEMENT_NODE) {
-                      if (node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'INPUT' && node.tagName !== 'TEXTAREA') {
-                        node.childNodes.forEach(walkNodes);
-                      }
-                    }
-                  };
-
-                  walkNodes(document.body);
-                };
-
-                const observer = new MutationObserver(() => {
-                  if (document.documentElement.classList.contains('translated-ltr') || document.documentElement.classList.contains('translated-rtl') || document.querySelector('font')) {
-                    fixTranslationDictionary();
-                  }
-                });
-
-                document.addEventListener('DOMContentLoaded', () => {
-                  observer.observe(document.body, {
-                    childList: true,
-                    subtree: true,
-                    characterData: true
-                  });
-                });
-              }
-            `,
-          }}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
       <body
         className="min-h-full flex flex-col relative transition-colors duration-200"
         suppressHydrationWarning
       >
-        {/* Provider Tema Gelap/Terang & Latar Belakang Animasi GDG */}
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

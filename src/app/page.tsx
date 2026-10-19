@@ -20,6 +20,8 @@ const SECTION_ORDER = ["#home", "#about", "#work", "#contact"];
 export default function Home() {
   // State untuk menandai apakah konten utama sudah aktif dan di-render
   const [showContent, setShowContent] = useState(false);
+  // State untuk melepas IntroLoader sepenuhnya dari DOM setelah intro selesai
+  const [introDone, setIntroDone] = useState(false);
   // State tab yang sedang aktif di seksi Experience (Projects, Tech Stack, Certificates)
   const [activeExperienceTab, setActiveExperienceTab] = useState<ExperienceTab>("projects");
   // State mode tampilan seksi Experience ("menu" untuk menu awal tipografi, "content" untuk isi konten normal)
@@ -47,6 +49,11 @@ export default function Home() {
     // Fallback pengaman jika callback IntroLoader tidak terpicu di mobile
     const fallbackTimer = setTimeout(() => {
       setShowContent(true);
+      setIntroDone(true);
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+      }
     }, 4000);
 
     return () => {
@@ -57,6 +64,11 @@ export default function Home() {
 
   const handleFinishedIntro = () => {
     setShowContent(true);
+    setIntroDone(true);
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
     setTimeout(() => {
       if (typeof document !== "undefined") {
         document.documentElement.setAttribute("data-rendered", "true");
@@ -122,7 +134,7 @@ export default function Home() {
   return (
     <>
       {/* Konsep: Animasi Layar Pembuka (Intro Loader nama pengembang dengan efek warna GDG) */}
-      <IntroLoader onFinished={handleFinishedIntro} />
+      {!introDone && <IntroLoader onFinished={handleFinishedIntro} />}
 
       {/* Konsep: Overlay Animasi Window Presentation (Aktif hanya saat navigasi Navbar) */}
       <SectionTransition

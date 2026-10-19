@@ -280,7 +280,7 @@ export default function Navbar({
     <>
       {/* Desktop Floating Top Navbar */}
       <nav
-        className={`fixed top-6 left-1/2 z-50 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border-2 border-black dark:border-zinc-700 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-[opacity,transform] duration-300 ease-out -translate-x-1/2 font-poppins ${
+        className={`fixed top-6 left-1/2 z-50 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border-2 border-black dark:border-zinc-700 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#000] transition-[opacity,transform] duration-300 ease-out -translate-x-1/2 font-sans ${
           showContent ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
@@ -462,7 +462,7 @@ export default function Navbar({
       </nav>
 
       {/* Floating Mobile Bottom Nav with Apple-Grade Dynamic Island Animation */}
-      <div className="fixed bottom-5 left-0 right-0 z-50 md:hidden flex justify-center items-center pointer-events-none px-4 select-none touch-manipulation font-poppins">
+      <div className="fixed bottom-5 left-0 right-0 z-50 md:hidden flex justify-center items-center pointer-events-none px-4 select-none touch-manipulation font-sans">
         {showContent && (
           <motion.div
             layout
@@ -609,7 +609,7 @@ export default function Navbar({
                   transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
                   className="flex items-center justify-center px-7 py-2"
                 >
-                  <span className="font-poppins font-bold text-xs uppercase tracking-widest text-black dark:text-white select-none whitespace-nowrap">
+                  <span className="font-sans font-bold text-xs uppercase tracking-widest text-black dark:text-white select-none whitespace-nowrap">
                     Menu
                   </span>
                 </motion.div>

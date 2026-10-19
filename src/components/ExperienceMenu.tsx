@@ -18,7 +18,7 @@ const MENU_ITEMS = [
     title: "PROJECTS",
     sub: "Web Apps, Security Tooling & Production Systems",
     tags: ["FULLSTACK", "NEXT.JS", "GO BACKEND", "SECURITY", "LINUX API"],
-    count: "12 PROJECTS",
+    count: "4 FEATURED",
     color: "var(--google-blue, #4285F4)",
     badgeBg: "bg-google-blue",
     icon: <FolderGit2 size={24} />,
