@@ -109,8 +109,8 @@ export default function Hero({
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D ID Lanyard */}
-          <div className="flex justify-center w-full lg:w-1/3 shrink-0 overflow-visible scale-90 sm:scale-100">
+          {/* Right Column: Interactive 3D ID Lanyard (Hidden on mobile, only visible on desktop lg+) */}
+          <div className="hidden lg:flex justify-center lg:w-1/3 shrink-0 overflow-visible">
             <Lanyard />
           </div>
         </div>
